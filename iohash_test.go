@@ -16,7 +16,7 @@ const (
 
 func TestReader(t *testing.T) {
 	in := strings.NewReader(content)
-	r := NewHashReader(in, sha1.New())
+	r := NewReader(in, sha1.New())
 	readContent, _ := ioutil.ReadAll(r)
 	assert.Equal(t, content, string(readContent))
 	assert.Equal(t, contentSHA1Sum, StringOfHash(r.Hash))
@@ -24,7 +24,7 @@ func TestReader(t *testing.T) {
 
 func TestWriter(t *testing.T) {
 	buf := bytes.NewBuffer(nil)
-	w := NewHashWriter(buf, sha1.New())
+	w := NewWriter(buf, sha1.New())
 	_, err := w.Write([]byte(content))
 	assert.NoError(t, err)
 	assert.Equal(t, content, buf.String())

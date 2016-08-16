@@ -24,7 +24,7 @@ func (h *HashWriter) Write(p []byte) (n int, err error) {
 	return
 }
 
-func NewHashWriter(w io.Writer, h hash.Hash) *HashWriter {
+func NewWriter(w io.Writer, h hash.Hash) *HashWriter {
 	return &HashWriter{w, h}
 }
 
@@ -42,6 +42,6 @@ func (h *HashReader) Read(p []byte) (int, error) {
 	return n, err
 }
 
-func NewHashReader(r io.Reader, h hash.Hash) *HashReader {
+func NewReader(r io.Reader, h hash.Hash) *HashReader {
 	return &HashReader{r, h}
 }
