@@ -13,8 +13,8 @@ import (
 var ErrMismatch = errors.New("checksum mismatch")
 var ErrNotFound = errors.New("no checksum found")
 
-func PrintHash(w io.Writer, h hash.Hash, filename string) {
-	fmt.Fprintf(w, "%x %s\n", h.Sum(nil), filename)
+func PrintHash(w io.Writer, h hash.Hash, filename string) (int, error) {
+	return fmt.Fprintf(w, "%x %s\n", h.Sum(nil), filename)
 }
 
 // See description of iohash.Check.
