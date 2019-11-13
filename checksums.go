@@ -14,7 +14,9 @@ var ErrMismatch = errors.New("checksum mismatch")
 var ErrNotFound = errors.New("no checksum found")
 
 func PrintHash(w io.Writer, h hash.Hash, filename string) (int, error) {
-	return fmt.Fprintf(w, "%x %s\n", h.Sum(nil), filename)
+	// IMPORTANT separator is two spaces.
+	// Older sha512sum (coreutils 8.5) can not handle single space as separator
+	return fmt.Fprintf(w, "%x  %s\n", h.Sum(nil), filename)
 }
 
 // See description of iohash.Check.
