@@ -6,6 +6,9 @@ import (
 	"io"
 )
 
+// FIXME hash implements io.Writer and can be used with io.MultiWriter
+// so is this module obsolete ?
+
 func StringOfHash(h hash.Hash) string {
 	return fmt.Sprintf("%x", h.Sum(nil))
 }
@@ -13,6 +16,10 @@ func StringOfHash(h hash.Hash) string {
 type HashWriter struct {
 	io.Writer
 	hash.Hash
+}
+
+func (h HashWriter) String() string {
+	return StringOfHash(h.Hash)
 }
 
 func (h *HashWriter) Write(p []byte) (n int, err error) {
@@ -31,6 +38,10 @@ func NewWriter(w io.Writer, h hash.Hash) *HashWriter {
 type HashReader struct {
 	io.Reader
 	hash.Hash
+}
+
+func (h HashReader) String() string {
+	return StringOfHash(h.Hash)
 }
 
 func (h *HashReader) Read(p []byte) (int, error) {
